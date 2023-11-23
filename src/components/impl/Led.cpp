@@ -2,29 +2,35 @@
 
 #include <Arduino.h>
 
-Led::Led(const int pin): pin(pin){
+Led::Led(const int pin) : pin(pin)
+{
     pinMode(pin, OUTPUT);
     state = OFF;
 }
 
-Led::~Led(){
-
+Led::~Led()
+{
 }
 
-void Led::turnOn(){
-    if(state == OFF){
+void Led::turnOn()
+{
+    if (state == OFF)
+    {
         digitalWrite(pin, HIGH);
         state = ON;
     }
 }
 
-void Led::turnOFF(){
-    if(state == ON){
+void Led::turnOFF()
+{
+    if (state == ON)
+    {
         digitalWrite(pin, LOW);
         state = OFF;
     }
 }
 
-int Led::isOn(){
+int Led::isOn()
+{
     return state == ON;
 }

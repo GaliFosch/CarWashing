@@ -5,6 +5,7 @@ class Servo
 {
 private:
     const int pin;
+
 public:
     Servo(int pin);
     ~Servo();

@@ -2,17 +2,19 @@
 
 #include "Arduino.h"
 
-Servo::Servo(const int pin): pin(pin){
+Servo::Servo(const int pin) : pin(pin)
+{
     pinMode(pin, OUTPUT);
 }
 
-Servo::~Servo(){
-
+Servo::~Servo()
+{
 }
 
-void Servo::pulseServo(const int pulseLen){
+void Servo::pulseServo(const int pulseLen)
+{
     digitalWrite(pin, HIGH);
     delayMicroseconds(pulseLen);
-    digitalWrite(pin,LOW);
+    digitalWrite(pin, LOW);
     delay(15);
 }

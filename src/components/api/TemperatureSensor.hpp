@@ -5,6 +5,7 @@ class TemperatureSensor
 {
 private:
     const int pin;
+
 public:
     TemperatureSensor(int pin);
     ~TemperatureSensor();

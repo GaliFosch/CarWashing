@@ -2,14 +2,15 @@
 
 #include <Arduino.h>
 
-TemperatureSensor::TemperatureSensor(const int pin): pin(pin){
-
+TemperatureSensor::TemperatureSensor(const int pin) : pin(pin)
+{
 }
-TemperatureSensor::~TemperatureSensor(){
-
+TemperatureSensor::~TemperatureSensor()
+{
 }
-double TemperatureSensor::read(){
+double TemperatureSensor::read()
+{
     int value = analogRead(pin);
-    int value_in_mV = 4.8876 * value; 
+    int value_in_mV = 4.8876 * value;
     return value_in_mV * 0.1;
 }

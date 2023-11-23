@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-PIRSensor::PIRSensor(int pin): pin(pin)
+PIRSensor::PIRSensor(int pin) : pin(pin)
 {
     pinMode(pin, INPUT);
 }

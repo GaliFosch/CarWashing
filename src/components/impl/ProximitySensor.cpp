@@ -13,7 +13,8 @@ ProximitySensor::~ProximitySensor()
 {
 }
 
-float ProximitySensor::getDistance(){
+float ProximitySensor::getDistance()
+{
 
     digitalWrite(trigPin, LOW);
     delayMicroseconds(3);
@@ -23,10 +24,11 @@ float ProximitySensor::getDistance(){
 
     float tUS = pulseIn(echoPin, HIGH);
     float t = tUS / 1000.0 / 1000.0 / 2;
-    float d = t*vs;
+    float d = t * vs;
     return d;
 }
 
-void ProximitySensor::setTemperature(const float temperature){
-    vs = 331.5 + 0.6*temperature;
+void ProximitySensor::setTemperature(const float temperature)
+{
+    vs = 331.5 + 0.6 * temperature;
 }

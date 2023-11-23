@@ -7,6 +7,7 @@ private:
     const int trigPin;
     const int echoPin;
     float vs;
+
 public:
     ProximitySensor(int trigPin, int echoPin, int temperature);
     ~ProximitySensor();

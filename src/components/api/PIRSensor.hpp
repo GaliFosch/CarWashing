@@ -5,6 +5,7 @@ class PIRSensor
 {
 private:
     const int pin;
+
 public:
     PIRSensor(int pin);
     ~PIRSensor();
