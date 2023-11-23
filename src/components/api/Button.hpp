@@ -5,11 +5,11 @@ class Button
 {
 private:
     const int pin;
+
 public:
     Button(int pin);
     ~Button();
     int isPressed();
 };
-
 
 #endif
