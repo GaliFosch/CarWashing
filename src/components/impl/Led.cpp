@@ -24,3 +24,7 @@ Led::turnOFF(){
         state = OFF;
     }
 }
+
+Led::isOn(){
+    return state == ON;
+}
