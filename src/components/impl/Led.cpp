@@ -11,20 +11,20 @@ Led::~Led(){
 
 }
 
-Led::turnOn(){
+void Led::turnOn(){
     if(state == OFF){
         digitalWrite(pin, HIGH);
         state = ON;
     }
 }
 
-Led::turnOFF(){
+void Led::turnOFF(){
     if(state == ON){
         digitalWrite(pin, LOW);
         state = OFF;
     }
 }
 
-Led::isOn(){
+int Led::isOn(){
     return state == ON;
 }
