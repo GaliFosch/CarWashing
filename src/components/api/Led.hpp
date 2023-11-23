@@ -1,13 +1,19 @@
 #ifndef __LED__
 #define __LED__
 
+
+
 class Led
 {
 private:
-    /* data */
+    const int pin;
+    enum{ ON, OFF} state;
 public:
-    Led(/* args */);
+    Led(int pin);
     ~Led();
+    void turnOn();
+    void turnOFF();
+    int isOn();
 };
 
 #endif
