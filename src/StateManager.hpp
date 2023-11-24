@@ -1,6 +1,8 @@
 #ifndef __STATE_MANAGER__
 #define __STATE_MANAGER__
 
+#include "sceduler/Sceduler.hpp"
+
 typedef enum{
     SLEEP,
     WAITING,
@@ -14,8 +16,9 @@ class StateManager
 {
 private:
     State currState;
+    Sceduler* sceduler;
 public:
-    StateManager(State initialState);
+    StateManager(State initialState, Sceduler* sceduler);
     ~StateManager();
     State getState();
     int changeState(State nextState);
