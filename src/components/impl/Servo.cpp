@@ -2,19 +2,24 @@
 
 #include "Arduino.h"
 
+const float coeff = (2250.0-750.0)/180;
+
 Servo::Servo(const int pin) : pin(pin)
 {
-    pinMode(pin, OUTPUT);
 }
 
 Servo::~Servo()
 {
 }
 
-void Servo::pulseServo(const int pulseLen)
-{
-    digitalWrite(pin, HIGH);
-    delayMicroseconds(pulseLen);
-    digitalWrite(pin, LOW);
-    delay(15);
+void Servo::on(){
+    motor.attach(pin);
+}
+
+void Servo::setPosition(int angle){
+    motor.write(750 + angle * coeff);
+}
+
+void Servo::off(){
+    motor.detach();
 }
