@@ -23,6 +23,7 @@ int StateManager::changeState(State nextState)
         break;
 
     case WAITING:
+        
         break;
 
     case ENETERING:
