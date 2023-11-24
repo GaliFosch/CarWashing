@@ -21,15 +21,6 @@ PartManager::PartManager()
     tempSensor = &TemperatureSensor(tempSensorPin);
 }
 
-PartManager *PartManager::getInstance()
-{
-    if (instancePtr == NULL)
-    {
-        instancePtr = new PartManager();
-    }
-    return instancePtr;
-}
-
 void PartManager::init()
 {
     lcd->init();

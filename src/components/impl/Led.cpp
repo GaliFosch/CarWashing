@@ -21,7 +21,7 @@ void Led::turnOn()
     }
 }
 
-void Led::turnOFF()
+void Led::turnOff()
 {
     if (state == ON)
     {

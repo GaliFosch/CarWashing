@@ -27,7 +27,15 @@ private:
 
 public:
     PartManager(const PartManager &obj) = delete;
-    PartManager *getInstance();
+    static PartManager *getInstance()
+    {
+        if (instancePtr == NULL)
+        {
+            instancePtr = new PartManager();
+        }
+        return instancePtr;
+    }
+
     void init();
     Led *getLed(int index);
     PIRSensor *getPirSensor();
@@ -40,6 +48,6 @@ public:
     void closeGate();
 };
 
-const extern PartManager partManager();
+PartManager* PartManager::instancePtr=NULL;
 
 #endif

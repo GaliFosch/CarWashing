@@ -15,7 +15,7 @@ public:
     Led(int pin);
     ~Led();
     void turnOn();
-    void turnOFF();
+    void turnOff();
     int isOn();
 };
 
