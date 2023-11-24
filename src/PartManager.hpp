@@ -15,26 +15,31 @@
 class PartManager
 {
 private:
-    Led* leds[NUM_LEDS];
-    PIRSensor* pir;
-    ProximitySensor* sonar;
-    Gate* gate;
-    LiquidCrystal_I2C* lcd;
-    Button* startButton;
-    TemperatureSensor* tempSensor;
-public:
+    static PartManager *instancePtr;
+    Led *leds[NUM_LEDS];
+    PIRSensor *pir;
+    ProximitySensor *sonar;
+    Gate *gate;
+    LiquidCrystal_I2C *lcd;
+    Button *startButton;
+    TemperatureSensor *tempSensor;
     PartManager();
-    ~PartManager();
+
+public:
+    PartManager(const PartManager &obj) = delete;
+    PartManager *getInstance();
     void init();
-    Led* getLed(int index);
-    PIRSensor* getPirSensor();
-    ProximitySensor* getProximitySensor();
-    Button* getButton();
-    TemperatureSensor* getTemperatureSensor();
+    Led *getLed(int index);
+    PIRSensor *getPirSensor();
+    ProximitySensor *getProximitySensor();
+    Button *getButton();
+    TemperatureSensor *getTemperatureSensor();
 
     void print(String string);
     void openGate();
     void closeGate();
 };
 
-#endif 
+const extern PartManager partManager();
+
+#endif

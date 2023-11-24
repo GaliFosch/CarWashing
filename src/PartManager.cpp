@@ -2,7 +2,7 @@
 
 const int ledPins[] = {1, 2, 3};
 const int pirPin = 4;
-const int sonarPins[] = {5,6};
+const int sonarPins[] = {5, 6};
 const int gatePin = 7;
 const int buttonPin = 8;
 const int tempSensorPin = 9;
@@ -16,13 +16,18 @@ PartManager::PartManager()
     pir = &PIRSensor(pirPin);
     sonar = &ProximitySensor(sonarPins[0], sonarPins[1], 20);
     gate = &Gate(gatePin);
-    lcd = &LiquidCrystal_I2C(0x27,20,4);
+    lcd = &LiquidCrystal_I2C(0x27, 20, 4);
     startButton = &Button(buttonPin);
     tempSensor = &TemperatureSensor(tempSensorPin);
 }
 
-PartManager::~PartManager()
+PartManager *PartManager::getInstance()
 {
+    if (instancePtr == NULL)
+    {
+        instancePtr = new PartManager();
+    }
+    return instancePtr;
 }
 
 void PartManager::init()
