@@ -1,7 +1,7 @@
 #ifndef __GATE__
 #define __GATE__
 
-#include "../components/api/Servo.hpp"
+#include "Servo.hpp"
 
 
 class Gate

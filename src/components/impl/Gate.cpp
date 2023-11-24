@@ -1,4 +1,4 @@
-#include "Gate.hpp"
+#include "../api/Gate.hpp"
 
 #define OPEN_ANGLE 90
 #define CLOSE_ANGLE 0
