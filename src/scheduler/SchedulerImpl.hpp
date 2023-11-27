@@ -8,14 +8,15 @@
 class SchedulerImpl : public Scheduler
 {
 private:
-    Task* taskArray[MAX_TASKS];
+    Task *taskArray[MAX_TASKS];
     int numTasks;
     unsigned int period;
+
 public:
     SchedulerImpl();
     ~SchedulerImpl();
     void init(unsigned int basePeriod);
-    bool addTask(Task* task);
+    bool addTask(Task *task);
     void clearTasks();
     void scedule();
 };

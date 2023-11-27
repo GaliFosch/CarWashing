@@ -1,6 +1,6 @@
 #include "PartManager.hpp"
 
-const int ledPins[] = {1, 2, 3};
+const int ledPins[] = {12, 2, 3};
 const int pirPin = 4;
 const int sonarPins[] = {5, 6};
 const int gatePin = 7;

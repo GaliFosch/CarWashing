@@ -1,15 +1,16 @@
 #include "SchedulerImpl.hpp"
 
 #include <TimerOne.h>
+#include "PartManager.hpp"
 
 volatile bool timerFlag;
 
-void timeHandler(void)
+void timerHandler(void)
 {
     timerFlag = true;
 }
 
-SchedulerImpl::SchedulerImpl()
+SchedulerImpl::SchedulerImpl():numTasks(0)
 {
 }
 
@@ -18,6 +19,10 @@ SchedulerImpl::~SchedulerImpl() {}
 void SchedulerImpl::init(unsigned int basePeriod)
 {
     this->period = basePeriod;
+    long period = 1000l*basePeriod;
+    Timer1.initialize(period);
+    Timer1.attachInterrupt(timerHandler);
+    timerFlag=true;
 }
 
 bool SchedulerImpl::addTask(Task *task) {

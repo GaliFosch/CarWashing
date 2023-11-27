@@ -1,6 +1,8 @@
 #include "BlinkTask.hpp"
 
-BlinkTask::BlinkTask(Led* led): led(led)
+#include <Arduino.h>
+
+BlinkTask::BlinkTask(Led led): led(&led)
 {
 }
 

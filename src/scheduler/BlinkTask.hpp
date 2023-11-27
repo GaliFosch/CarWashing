@@ -4,12 +4,12 @@
 #include "scheduler/Task.hpp"
 #include "components/api/Led.hpp"
 
-class BlinkTask: Task
+class BlinkTask: public Task
 {
 private:
     Led* led;
 public:
-    BlinkTask(Led* led);
+    BlinkTask(Led led);
     void tick();
 };
 
