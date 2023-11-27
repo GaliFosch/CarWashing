@@ -18,7 +18,7 @@ class StateManager
 private:
     State currState;
     Sceduler* sceduler;
-    PartManager* partManager;
+    PartManager partManager;
 public:
     StateManager(State initialState, Sceduler* sceduler);
     ~StateManager();

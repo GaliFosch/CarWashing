@@ -13,7 +13,6 @@
 class PartManager
 {
 private:
-    static PartManager *instancePtr;
     Led led1;
     Led led2;
     Led led3;
@@ -26,13 +25,9 @@ private:
     PartManager();
 
 public:
-    PartManager(const PartManager &obj) = delete;
-    static PartManager *getInstance()
+    static PartManager getInstance()
     {
-        if (instancePtr == NULL)
-        {
-            instancePtr = new PartManager();
-        }
+        static PartManager instancePtr = PartManager();
         return instancePtr;
     }
 
@@ -50,7 +45,5 @@ public:
     void openGate();
     void closeGate();
 };
-
-PartManager* PartManager::instancePtr=NULL;
 
 #endif
