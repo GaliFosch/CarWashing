@@ -7,17 +7,13 @@
 
 class Sceduler
 {
-private:
-    Task* taskArray[MAX_TASKS];
-    int numTasks;
-    unsigned int period;
 public:
-    Sceduler(/* args */);
+    Sceduler();
     ~Sceduler();
-    void init(unsigned int basePeriod);
-    bool addTask(Task* task);
-    void clearTasks();
-    void scedule();
+    virtual void init(unsigned int basePeriod);
+    virtual bool addTask(Task* task);
+    virtual void clearTasks();
+    virtual void scedule();
 };
 
 #endif
