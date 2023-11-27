@@ -4,7 +4,7 @@
 class PIRSensor
 {
 private:
-    const int pin;
+    int pin;
 
 public:
     PIRSensor(int pin);

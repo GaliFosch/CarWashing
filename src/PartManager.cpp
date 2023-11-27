@@ -7,24 +7,24 @@ const int gatePin = 7;
 const int buttonPin = 8;
 const int tempSensorPin = 9;
 
-PartManager::PartManager()
+PartManager::PartManager(): 
+    pir(pirPin),
+    sonar(sonarPins[0], sonarPins[1], 20),
+    gate(gatePin),
+    lcd(0x27, 20, 4),
+    startButton(buttonPin),
+    tempSensor(tempSensorPin)
 {
     for (int i = 0; i < NUM_LEDS; i++)
     {
-        leds[i] = &Led(ledPins[i]);
+        leds[i] = Led(ledPins);
     }
-    pir = &PIRSensor(pirPin);
-    sonar = &ProximitySensor(sonarPins[0], sonarPins[1], 20);
-    gate = &Gate(gatePin);
-    lcd = &LiquidCrystal_I2C(0x27, 20, 4);
-    startButton = &Button(buttonPin);
-    tempSensor = &TemperatureSensor(tempSensorPin);
 }
 
 void PartManager::init()
 {
-    lcd->init();
-    lcd->backlight();
+    lcd.init();
+    lcd.backlight();
 }
 
 Led *PartManager::getLed(int index)
@@ -34,36 +34,36 @@ Led *PartManager::getLed(int index)
 
 PIRSensor *PartManager::getPirSensor()
 {
-    return pir;
+    return &pir;
 }
 
 ProximitySensor *PartManager::getProximitySensor()
 {
-    return sonar;
+    return &sonar;
 }
 
 Button *PartManager::getButton()
 {
-    return startButton;
+    return &startButton;
 }
 
 TemperatureSensor *PartManager::getTemperatureSensor()
 {
-    return tempSensor;
+    return &tempSensor;
 }
 
 void PartManager::print(String string)
 {
-    lcd->setCursor(2, 1);
-    lcd->print(string);
+    lcd.setCursor(2, 1);
+    lcd.print(string);
 }
 
 void PartManager::openGate()
 {
-    gate->open();
+    gate.open();
 }
 
 void PartManager::closeGate()
 {
-    gate->close();
+    gate.close();
 }

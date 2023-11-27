@@ -8,7 +8,7 @@ Gate::Gate(int pin): servo(pin){
 }
 
 Gate::~Gate(){
-    servo.~Servo();
+    servo.~ServoMotorImpl();
 }
 
 void Gate::open(){

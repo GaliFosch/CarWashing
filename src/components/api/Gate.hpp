@@ -1,13 +1,13 @@
 #ifndef __GATE__
 #define __GATE__
 
-#include "Servo.hpp"
+#include "ServoMotorImpl.hpp"
 
 
 class Gate
 {
 private:
-    Servo servo;
+    ServoMotorImpl servo;
     enum{OPEN, CLOSED} state;
 public:
     Gate(int pin);

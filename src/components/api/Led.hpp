@@ -4,7 +4,7 @@
 class Led
 {
 private:
-    const int pin;
+    int pin;
     enum
     {
         ON,

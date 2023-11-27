@@ -4,8 +4,8 @@
 class ProximitySensor
 {
 private:
-    const int trigPin;
-    const int echoPin;
+    int trigPin;
+    int echoPin;
     float vs;
 
 public:

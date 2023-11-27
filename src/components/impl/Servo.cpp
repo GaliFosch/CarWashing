@@ -1,25 +1,18 @@
-#include "../api/Servo.hpp"
-
+#include "../api/ServoMotorImpl.hpp"
 #include "Arduino.h"
 
-const float coeff = (2250.0-750.0)/180;
+ServoMotorImpl::ServoMotorImpl(int pin){
+  this->pin = pin;  
+} 
 
-Servo::Servo(const int pin) : pin(pin)
-{
+void ServoMotorImpl::on(){
+  motor.attach(pin);    
 }
 
-Servo::~Servo()
-{
+void ServoMotorImpl::setPosition(int angle){
+  motor.write(angle);              
 }
 
-void Servo::on(){
-    motor.attach(pin);
-}
-
-void Servo::setPosition(int angle){
-    motor.write(750 + angle * coeff);
-}
-
-void Servo::off(){
-    motor.detach();
+void ServoMotorImpl::off(){
+  motor.detach();    
 }

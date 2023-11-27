@@ -16,13 +16,13 @@ class PartManager
 {
 private:
     static PartManager *instancePtr;
-    Led *leds[NUM_LEDS];
-    PIRSensor *pir;
-    ProximitySensor *sonar;
-    Gate *gate;
-    LiquidCrystal_I2C *lcd;
-    Button *startButton;
-    TemperatureSensor *tempSensor;
+    Led leds[NUM_LEDS];
+    PIRSensor pir;
+    ProximitySensor sonar;
+    Gate gate;
+    LiquidCrystal_I2C lcd;
+    Button startButton;
+    TemperatureSensor tempSensor;
     PartManager();
 
 public:

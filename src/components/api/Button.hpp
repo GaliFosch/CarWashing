@@ -4,7 +4,7 @@
 class Button
 {
 private:
-    const int pin;
+    int pin;
 
 public:
     Button(int pin);
