@@ -1,6 +1,6 @@
 #include "StateManager.hpp"
 
-StateManager::StateManager(State initialState, Sceduler *sceduler) : currState(initialState), sceduler(sceduler), partManager(PartManager::getInstance())
+StateManager::StateManager(State initialState, Scheduler *sceduler) : currState(initialState), sceduler(sceduler), partManager(PartManager::getInstance())
 {
 }
 

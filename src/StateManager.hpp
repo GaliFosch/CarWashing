@@ -1,7 +1,7 @@
 #ifndef __STATE_MANAGER__
 #define __STATE_MANAGER__
 
-#include "sceduler/Sceduler.hpp"
+#include "scheduler/Scheduler.hpp"
 #include "PartManager.hpp"
 
 typedef enum{
@@ -17,10 +17,10 @@ class StateManager
 {
 private:
     State currState;
-    Sceduler* sceduler;
+    Scheduler* sceduler;
     PartManager partManager;
 public:
-    StateManager(State initialState, Sceduler* sceduler);
+    StateManager(State initialState, Scheduler* sceduler);
     ~StateManager();
     State getState();
     int changeState(State nextState);

@@ -1,4 +1,4 @@
-#include "ScedulerImpl.hpp"
+#include "SchedulerImpl.hpp"
 
 #include <TimerOne.h>
 
@@ -9,18 +9,18 @@ void timeHandler(void)
     timerFlag = true;
 }
 
-ScedulerImpl::ScedulerImpl()
+SchedulerImpl::SchedulerImpl()
 {
 }
 
-ScedulerImpl::~ScedulerImpl() {}
+SchedulerImpl::~SchedulerImpl() {}
 
-void ScedulerImpl::init(unsigned int basePeriod)
+void SchedulerImpl::init(unsigned int basePeriod)
 {
     this->period = basePeriod;
 }
 
-bool ScedulerImpl::addTask(Task *task) {
+bool SchedulerImpl::addTask(Task *task) {
     if(numTasks < MAX_TASKS){
         this->taskArray[numTasks] = task;
         numTasks++;
@@ -28,10 +28,10 @@ bool ScedulerImpl::addTask(Task *task) {
     }
     return false;
 }
-void ScedulerImpl::clearTasks() {
+void SchedulerImpl::clearTasks() {
     numTasks = 0;
 }
-void ScedulerImpl::scedule() {
+void SchedulerImpl::scedule() {
     while (!timerFlag){}
     timerFlag = false;
 

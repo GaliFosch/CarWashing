@@ -1,7 +1,7 @@
 #ifndef __BLINK_TASK__
 #define __BLINK_TASK__
 
-#include "sceduler/Task.hpp"
+#include "scheduler/Task.hpp"
 #include "components/api/Led.hpp"
 
 class BlinkTask: Task

@@ -1,19 +1,19 @@
-#ifndef __SCEDULER_IMPL__
-#define __SCEDULER_IMPL__
+#ifndef __SCHEDULER_IMPL__
+#define __SCHEDULER_IMPL__
 
-#include "Sceduler.hpp"
+#include "Scheduler.hpp"
 
 #define MAX_TASKS 50
 
-class ScedulerImpl : public Sceduler
+class SchedulerImpl : public Scheduler
 {
 private:
     Task* taskArray[MAX_TASKS];
     int numTasks;
     unsigned int period;
 public:
-    ScedulerImpl();
-    ~ScedulerImpl();
+    SchedulerImpl();
+    ~SchedulerImpl();
     void init(unsigned int basePeriod);
     bool addTask(Task* task);
     void clearTasks();

@@ -1,11 +1,11 @@
-#ifndef __SCEDULER__
-#define __SCEDULER__
+#ifndef __SCHEDULER__
+#define __SCHEDULER__
 
 #include "Task.hpp"
 
 #define MAX_TASKS 50
 
-class Sceduler
+class Scheduler
 {
 public:
     virtual void init(unsigned int basePeriod) = 0;
