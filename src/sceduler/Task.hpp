@@ -3,15 +3,13 @@
 
 class Task
 {
-private:
+protected:
     unsigned int period;
     unsigned int timeCounter;
 public:
-    Task();
-    ~Task();
     virtual void init(unsigned int period);
     bool updateAndCheckTime(unsigned int time);
-    virtual void tick();
+    virtual void tick() = 0;
 };
 
 void Task::init(unsigned int period){

@@ -8,12 +8,10 @@
 class Sceduler
 {
 public:
-    Sceduler();
-    ~Sceduler();
-    virtual void init(unsigned int basePeriod);
-    virtual bool addTask(Task* task);
-    virtual void clearTasks();
-    virtual void scedule();
+    virtual void init(unsigned int basePeriod) = 0;
+    virtual bool addTask(Task* task) = 0;
+    virtual void clearTasks() = 0;
+    virtual void scedule() = 0;
 };
 
 #endif
