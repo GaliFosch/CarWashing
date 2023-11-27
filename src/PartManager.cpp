@@ -3,7 +3,7 @@
 const int ledPins[] = {12, 2, 3};
 const int pirPin = 4;
 const int sonarPins[] = {5, 6};
-const int gatePin = 7;
+const int gatePin = 5;
 const int buttonPin = 8;
 const int tempSensorPin = 9;
 
