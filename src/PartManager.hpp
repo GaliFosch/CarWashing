@@ -10,13 +10,13 @@
 #include "components/api/Button.hpp"
 #include "components/api/TemperatureSensor.hpp"
 
-#define NUM_LEDS 3
-
 class PartManager
 {
 private:
     static PartManager *instancePtr;
-    Led leds[NUM_LEDS];
+    Led led1;
+    Led led2;
+    Led led3;
     PIRSensor pir;
     ProximitySensor sonar;
     Gate gate;
@@ -37,11 +37,14 @@ public:
     }
 
     void init();
-    Led *getLed(int index);
     PIRSensor *getPirSensor();
     ProximitySensor *getProximitySensor();
     Button *getButton();
     TemperatureSensor *getTemperatureSensor();
+
+    Led getLed1();
+    Led getLed2();
+    Led getLed3();
 
     void print(String string);
     void openGate();

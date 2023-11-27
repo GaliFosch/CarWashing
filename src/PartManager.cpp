@@ -8,6 +8,9 @@ const int buttonPin = 8;
 const int tempSensorPin = 9;
 
 PartManager::PartManager(): 
+    led1(ledPins[0]),
+    led2(ledPins[1]),
+    led3(ledPins[2]),
     pir(pirPin),
     sonar(sonarPins[0], sonarPins[1], 20),
     gate(gatePin),
@@ -15,10 +18,7 @@ PartManager::PartManager():
     startButton(buttonPin),
     tempSensor(tempSensorPin)
 {
-    for (int i = 0; i < NUM_LEDS; i++)
-    {
-        leds[i] = Led(ledPins);
-    }
+
 }
 
 void PartManager::init()
@@ -27,9 +27,14 @@ void PartManager::init()
     lcd.backlight();
 }
 
-Led *PartManager::getLed(int index)
-{
-    return leds[index];
+Led PartManager::getLed1(){
+    return led1;
+}
+Led PartManager::getLed2(){
+    return led2;
+}
+Led PartManager::getLed3(){
+    return led3;
 }
 
 PIRSensor *PartManager::getPirSensor()

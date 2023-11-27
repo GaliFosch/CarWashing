@@ -22,23 +22,23 @@ int StateManager::changeState(State nextState)
     {
     case SLEEP:
         partManager->closeGate();
-        partManager->getLed(2)->turnOff();
+        partManager->getLed3().turnOff();
         break;
 
     case WAITING:
-        partManager->getLed(0)->turnOn();
+        partManager->getLed1().turnOn();
         partManager->print("Welcome");
         break;
 
     case ENETERING:
-        partManager->getLed(0)->turnOff();
+        partManager->getLed1().turnOff();
         partManager->openGate();
         partManager->print("Proceed to the Washing Area");
         break;
 
     case WAITING_INPUT:
         partManager->closeGate();
-        partManager->getLed(1)->turnOn();
+        partManager->getLed2().turnOn();
         partManager->print("Ready to Wash");
         break;
 
@@ -46,8 +46,8 @@ int StateManager::changeState(State nextState)
         break;
 
     case LEAVE:
-        partManager->getLed(1)->turnOff();
-        partManager->getLed(2)->turnOn();
+        partManager->getLed2().turnOff();
+        partManager->getLed3().turnOn();
         partManager->print("Washing complete, you can leave the area");
         break;
 
