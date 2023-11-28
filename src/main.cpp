@@ -1,26 +1,20 @@
 #include <Arduino.h>
-#include "components/api/ServoMotorImpl.hpp"
+
 #include "scheduler/Scheduler.hpp"
 #include "scheduler/SchedulerImpl.hpp"
-#include "scheduler/FunctionTask.hpp"
-#include "PartManager.hpp"
-#include "scheduler/BlinkTask.hpp"
+#include "StateManager.hpp"
 
-Gate* g;
-bool f = true;
+Scheduler* s;
+StateManager* sm;
 
 void setup() {
-  Serial.begin(9600);
-  g = new Gate(5);
+  s = new SchedulerImpl();
+  sm = new StateManager(State::SLEEP, s);
+  PartManager::getInstance()->init();
+  sm->changeState(State::ENETERING);
+  s->init(50);
 }
 
 void loop() {
-  if(f){
-    g->open();
-    f = false;
-  }else{
-    g->close();
-    f = true;
-  }
-  delay(1000);
+  s->scedule();
 }

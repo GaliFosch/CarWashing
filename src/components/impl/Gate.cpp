@@ -7,7 +7,8 @@
 int delta = 1;
 
 Gate::Gate(int pin): servo(pin), pos(0){
-    state = CLOSED;
+    state = OPEN;
+    this->close();
 }
 
 Gate::~Gate(){
