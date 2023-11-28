@@ -1,12 +1,13 @@
 #include "StateManager.hpp"
 
-StateManager::StateManager(State initialState, Scheduler *sceduler) : currState(initialState), sceduler(sceduler), partManager(PartManager::getInstance())
+#include "scheduler/FunctionTask.hpp"
+
+StateManager::StateManager(State initialState, Scheduler *scheduler) : currState(initialState), scheduler(scheduler), partManager(PartManager::getInstance())
 {
 }
 
 StateManager::~StateManager()
 {
-
 }
 
 State StateManager::getState()
@@ -22,7 +23,7 @@ int StateManager::changeState(State nextState)
     case SLEEP:
         partManager->closeGate();
         partManager->getLed3().turnOff();
-        break;
+    break;
 
     case WAITING:
         partManager->getLed1().turnOn();
