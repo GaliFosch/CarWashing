@@ -1,6 +1,5 @@
 #include "StateManager.hpp"
 
-#include "scheduler/FunctionTask.hpp"
 
 StateManager::StateManager(State initialState, Scheduler *scheduler) : currState(initialState), scheduler(scheduler), partManager(PartManager::getInstance())
 {
