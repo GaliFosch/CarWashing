@@ -8,6 +8,7 @@ class Gate
 {
 private:
     ServoMotorImpl servo;
+    int pos;
     enum{OPEN, CLOSED} state;
 public:
     Gate(int pin);

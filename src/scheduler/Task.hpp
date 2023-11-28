@@ -1,6 +1,6 @@
 #ifndef __TASK__
 #define __TASK__
-
+#include <Arduino.h>
 class Task
 {
 protected:
@@ -10,7 +10,8 @@ protected:
 public:
     virtual void init(unsigned int period)
     {
-        period = period;
+        this->period = period;
+        Serial.println(this->period);
     }
     bool updateAndCheckTime(unsigned int time)
     {

@@ -20,34 +20,34 @@ int StateManager::changeState(State nextState)
     switch (nextState)
     {
     case SLEEP:
-        partManager.closeGate();
-        partManager.getLed3().turnOff();
+        partManager->closeGate();
+        partManager->getLed3().turnOff();
         break;
 
     case WAITING:
-        partManager.getLed1().turnOn();
-        partManager.print("Welcome");
+        partManager->getLed1().turnOn();
+        partManager->print("Welcome");
         break;
 
     case ENETERING:
-        partManager.getLed1().turnOff();
-        partManager.openGate();
-        partManager.print("Proceed to the Washing Area");
+        partManager->getLed1().turnOff();
+        partManager->openGate();
+        partManager->print("Proceed to the Washing Area");
         break;
 
     case WAITING_INPUT:
-        partManager.closeGate();
-        partManager.getLed2().turnOn();
-        partManager.print("Ready to Wash");
+        partManager->closeGate();
+        partManager->getLed2().turnOn();
+        partManager->print("Ready to Wash");
         break;
 
     case WASHING:
         break;
 
     case LEAVE:
-        partManager.getLed2().turnOff();
-        partManager.getLed3().turnOn();
-        partManager.print("Washing complete, you can leave the area");
+        partManager->getLed2().turnOff();
+        partManager->getLed3().turnOn();
+        partManager->print("Washing complete, you can leave the area");
         break;
 
     default:

@@ -1,28 +1,26 @@
 #include <Arduino.h>
 #include "components/api/ServoMotorImpl.hpp"
+#include "scheduler/Scheduler.hpp"
+#include "scheduler/SchedulerImpl.hpp"
+#include "scheduler/FunctionTask.hpp"
+#include "PartManager.hpp"
+#include "scheduler/BlinkTask.hpp"
 
-
-int pos;   
-int delta;
-ServoMotor* pMotor;
+Gate* g;
+bool f = true;
 
 void setup() {
   Serial.begin(9600);
-  pMotor = new ServoMotorImpl(9);
-  pos = 0;
-  delta = 1;
+  g = new Gate(5);
 }
 
 void loop() {
-  pMotor->on();
-  for (int i = 0; i < 180; i++) {
-    Serial.println(pos);
-    pMotor->setPosition(pos);         
-    // delay(2);            
-    pos += delta;
+  if(f){
+    g->open();
+    f = false;
+  }else{
+    g->close();
+    f = true;
   }
-  pMotor->off();
-  pos -= delta;
-  delta = -delta;
   delay(1000);
 }

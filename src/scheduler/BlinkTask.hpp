@@ -11,6 +11,7 @@ private:
 public:
     BlinkTask(Led led);
     void tick();
+    void init(unsigned int period);
 };
 
 #endif
