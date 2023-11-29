@@ -23,7 +23,6 @@ private:
     Button startButton;
     TemperatureSensor tempSensor;
     ComponentsManager();
-
 public:
     static ComponentsManager *getInstance()
     {
@@ -37,9 +36,9 @@ public:
     Button *getButton();
     TemperatureSensor *getTemperatureSensor();
 
-    Led getLed1();
-    Led getLed2();
-    Led getLed3();
+    Led *getLed1();
+    Led *getLed2();
+    Led *getLed3();
 
     void print(String string);
     void openGate();

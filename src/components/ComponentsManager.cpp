@@ -25,17 +25,17 @@ void ComponentsManager::init()
     lcd.backlight();
 }
 
-Led ComponentsManager::getLed1()
+Led *ComponentsManager::getLed1()
 {
-    return led1;
+    return &led1;
 }
-Led ComponentsManager::getLed2()
+Led *ComponentsManager::getLed2()
 {
-    return led2;
+    return &led2;
 }
-Led ComponentsManager::getLed3()
+Led *ComponentsManager::getLed3()
 {
-    return led3;
+    return &led3;
 }
 
 PIRSensor *ComponentsManager::getPirSensor()
