@@ -6,7 +6,7 @@ class Task
 protected:
     unsigned int period;
     unsigned int timeCounter;
-
+    boolean active;
 public:
     virtual void init(unsigned int period)
     {
@@ -24,6 +24,18 @@ public:
         return false;
     }
     virtual void tick() = 0;
+
+    void activate(){
+        active = true;
+    }
+
+    void deactivate(){
+        active = false;
+    }
+
+    boolean isActive(){
+        return active;
+    }
 };
 
 

@@ -41,7 +41,7 @@ void SchedulerImpl::scedule() {
     timerFlag = false;
 
     for(int i=0; i<numTasks; i++){
-        if(taskArray[i]->updateAndCheckTime(period)){
+        if(taskArray[i]->isActive() && taskArray[i]->updateAndCheckTime(period)){
             taskArray[i]->tick();
         }
     }
