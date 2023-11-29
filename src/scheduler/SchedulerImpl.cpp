@@ -33,9 +33,11 @@ bool SchedulerImpl::addTask(Task *task) {
     }
     return false;
 }
+
 void SchedulerImpl::clearTasks() {
     numTasks = 0;
 }
+
 void SchedulerImpl::scedule() {
     while (!timerFlag){}
     timerFlag = false;
