@@ -17,12 +17,14 @@ class StateManager
 {
 private:
     State currState;
-    Scheduler* scheduler;
     PartManager* partManager;
+    Scheduler* scheduler;
 public:
-    StateManager(State initialState, Scheduler* scheduler);
+    StateManager(State initialState);
     ~StateManager();
+    void init();
     State getState();
+    Scheduler* getScheduler();
     int changeState(State nextState);
 };
 
