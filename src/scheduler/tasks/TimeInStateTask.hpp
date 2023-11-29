@@ -1,29 +1,27 @@
-#ifndef __TIME_IN_STATE_TASK__
-#define __TIME_IN_STATE_TASK__
+#ifndef __TIME_IN_TASK__
+#define __TIME_IN_TASK__
 
 #include "Task.hpp"
 
 class TimeInStateTask : public Task
 {
+private:
+    unsigned int time;
+    unsigned int counter;
 protected:
-    unsigned int timeInState;
-
-public:
     virtual boolean isInState() = 0;
-    virtual void init(unsigned int period)
-    {
-        this->Task::init(period);
-        this->timeInState = 0;
-    }
-    virtual void tick()
-    {
-        if (isInState())
-        {
-            this->timeInState += period;
-        }
+    virtual void exec() = 0;
+public:
+    TimeInStateTask(unsigned int time): time(time){}
+    virtual void init(unsigned int period);
+    void tick(){
+        if(isInState())
+            counter += period;
         else
-        {
-            this->timeInState = 0;
+            counter = 0;
+        if(counter >= time){
+            exec();
+            counter = 0;
         }
     }
 };
