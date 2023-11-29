@@ -1,4 +1,4 @@
-#include "BlinkTask.hpp"
+#include "scheduler/tasks/BlinkTask.hpp"
 
 #include <Arduino.h>
 

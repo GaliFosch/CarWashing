@@ -1,7 +1,7 @@
 #ifndef __BLINK_TASK__
 #define __BLINK_TASK__
 
-#include "scheduler/Task.hpp"
+#include "scheduler/tasks/Task.hpp"
 #include "components/api/Led.hpp"
 
 class BlinkTask: public Task
