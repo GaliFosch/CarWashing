@@ -1,7 +1,7 @@
 #ifndef __SCHEDULER__
 #define __SCHEDULER__
 
-#include "Task.hpp"
+#include "tasks/Task.hpp"
 
 #define MAX_TASKS 50
 
