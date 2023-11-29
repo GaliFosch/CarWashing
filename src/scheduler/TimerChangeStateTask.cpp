@@ -1,9 +1,8 @@
 #include "TimerChangeStateTask.hpp"
 
-TimerChangeStateTask::TimerChangeStateTask(StateManager *sm, State nextState, unsigned int time) : 
-    sm(sm), 
-    nextState(nextState), 
-    time(time)
+TimerChangeStateTask::TimerChangeStateTask(StateManager *sm, State nextState, unsigned int time) : sm(sm),
+                                                                                                   nextState(nextState),
+                                                                                                   time(time)
 {
 }
 
@@ -12,7 +11,8 @@ TimerChangeStateTask::~TimerChangeStateTask() {}
 void TimerChangeStateTask::tick()
 {
     this->TimeInStateTask::tick();
-    if(timeInState>=time){
+    if (timeInState >= time)
+    {
         sm->changeState(nextState);
         this->deactivate();
     }

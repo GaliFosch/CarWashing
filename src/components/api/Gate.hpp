@@ -3,19 +3,22 @@
 
 #include "ServoMotorImpl.hpp"
 
-
 class Gate
 {
 private:
     ServoMotorImpl servo;
     int pos;
-    enum{OPEN, CLOSED} state;
+    enum
+    {
+        OPEN,
+        CLOSED
+    } state;
+
 public:
     Gate(int pin);
     ~Gate();
     void open();
     void close();
 };
-
 
 #endif

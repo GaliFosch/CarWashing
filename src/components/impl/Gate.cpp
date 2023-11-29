@@ -6,22 +6,27 @@
 
 int delta = 1;
 
-Gate::Gate(int pin): servo(pin), pos(0){
+Gate::Gate(int pin) : servo(pin), pos(0)
+{
     state = OPEN;
     this->close();
 }
 
-Gate::~Gate(){
+Gate::~Gate()
+{
     servo.~ServoMotorImpl();
 }
 
-void Gate::open(){
-    if(state==CLOSED){
+void Gate::open()
+{
+    if (state == CLOSED)
+    {
         Serial.println("open");
         servo.on();
-        for (int i = 0; i < 90; i++) {
+        for (int i = 0; i < 90; i++)
+        {
             Serial.println(pos);
-            servo.setPosition(pos);          
+            servo.setPosition(pos);
             pos += delta;
         }
         servo.off();
@@ -29,13 +34,16 @@ void Gate::open(){
     }
 }
 
-void Gate::close(){
-    if(state==OPEN){
+void Gate::close()
+{
+    if (state == OPEN)
+    {
         Serial.println("closed");
         servo.on();
-        for (int i = 0; i < 90; i++) {
+        for (int i = 0; i < 90; i++)
+        {
             Serial.println(pos);
-            servo.setPosition(pos);          
+            servo.setPosition(pos);
             pos -= delta;
         }
         servo.off();

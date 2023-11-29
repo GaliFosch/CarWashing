@@ -25,9 +25,9 @@ private:
     PartManager();
 
 public:
-    static PartManager* getInstance()
+    static PartManager *getInstance()
     {
-        static PartManager* instancePtr = new PartManager();
+        static PartManager *instancePtr = new PartManager();
         return instancePtr;
     }
 

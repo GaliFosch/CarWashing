@@ -7,6 +7,7 @@ protected:
     unsigned int period;
     unsigned int timeCounter;
     boolean active;
+
 public:
     virtual void init(unsigned int period)
     {
@@ -25,18 +26,20 @@ public:
     }
     virtual void tick() = 0;
 
-    void activate(){
+    void activate()
+    {
         active = true;
     }
 
-    void deactivate(){
+    void deactivate()
+    {
         active = false;
     }
 
-    boolean isActive(){
+    boolean isActive()
+    {
         return active;
     }
 };
-
 
 #endif

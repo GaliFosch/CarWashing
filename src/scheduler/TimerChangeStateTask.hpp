@@ -10,6 +10,7 @@ private:
     StateManager *sm;
     State nextState;
     unsigned int time;
+
 public:
     TimerChangeStateTask(StateManager *sm, State nextState, unsigned int time);
     ~TimerChangeStateTask();

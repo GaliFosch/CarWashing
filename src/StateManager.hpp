@@ -4,7 +4,8 @@
 #include "scheduler/Scheduler.hpp"
 #include "PartManager.hpp"
 
-typedef enum{
+typedef enum
+{
     SLEEP,
     WAITING,
     ENETERING,
@@ -17,14 +18,15 @@ class StateManager
 {
 private:
     State currState;
-    PartManager* partManager;
-    Scheduler* scheduler;
+    PartManager *partManager;
+    Scheduler *scheduler;
+
 public:
     StateManager(State initialState);
     ~StateManager();
     void init();
     State getState();
-    Scheduler* getScheduler();
+    Scheduler *getScheduler();
     int changeState(State nextState);
 };
 

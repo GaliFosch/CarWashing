@@ -3,8 +3,7 @@
 #include "scheduler/TimerChangeStateTask.hpp"
 #include "scheduler/SchedulerImpl.hpp"
 
-StateManager::StateManager(State initialState) : 
-    partManager(PartManager::getInstance())
+StateManager::StateManager(State initialState) : partManager(PartManager::getInstance())
 {
     this->scheduler = new SchedulerImpl();
     this->currState = initialState;
@@ -14,7 +13,8 @@ StateManager::~StateManager()
 {
 }
 
-void StateManager::init(){
+void StateManager::init()
+{
     // metti Task dentro lo scheduler
 }
 
@@ -23,7 +23,8 @@ State StateManager::getState()
     return currState;
 }
 
-Scheduler* StateManager::getScheduler(){
+Scheduler *StateManager::getScheduler()
+{
     return scheduler;
 }
 
@@ -35,7 +36,7 @@ int StateManager::changeState(State nextState)
     case SLEEP:
         partManager->closeGate();
         partManager->getLed3().turnOff();
-    break;
+        break;
 
     case WAITING:
         partManager->getLed1().turnOn();
