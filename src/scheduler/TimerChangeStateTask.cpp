@@ -1,8 +1,9 @@
 #include "TimerChangeStateTask.hpp"
 
-static boolean executed;
-
-TimerChangeStateTask::TimerChangeStateTask(StateManager *sm, State nextState) : sm(sm), nextState(nextState)
+TimerChangeStateTask::TimerChangeStateTask(StateManager *sm, State nextState, unsigned int time) : 
+    sm(sm), 
+    nextState(nextState), 
+    time(time)
 {
 }
 
@@ -10,13 +11,16 @@ TimerChangeStateTask::~TimerChangeStateTask() {}
 
 void TimerChangeStateTask::tick()
 {
-    if(executed){
-        sm->changeState(nextState);
-        executed = true;
-    }
+    this->TimeInStateTask::tick();
+    sm->changeState(nextState);
 }
 
-void TimerChangeStateTask::init(unsigned int period){
+void TimerChangeStateTask::init(unsigned int period)
+{
     this->Task::init(period);
-    executed = false;
+}
+
+boolean TimerChangeStateTask::isInState()
+{
+    return true;
 }

@@ -11,9 +11,11 @@ void setup() {
   s = new SchedulerImpl();
   sm = new StateManager(State::SLEEP, s);
   PartManager::getInstance()->init();
-  s->init(50);
+  Serial.begin(9600);
+  s->init(1000);
 }
 
 void loop() {
   s->scedule();
+  Serial.println(sm->getState());
 }

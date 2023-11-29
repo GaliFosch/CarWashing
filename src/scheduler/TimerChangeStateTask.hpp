@@ -1,20 +1,21 @@
 #ifndef __TIMER_CHANGE_STATE_TASK__
 #define __TIMER_CHANGE_STATE_TASK__
 
-#include "Task.hpp"
+#include "TimeInStateTask.hpp"
 #include "StateManager.hpp"
 
-class TimerChangeStateTask : public Task
+class TimerChangeStateTask : public TimeInStateTask
 {
 private:
-    StateManager* sm;
+    StateManager *sm;
     State nextState;
+    unsigned int time;
 public:
-    TimerChangeStateTask(StateManager* sm, State nextState);
+    TimerChangeStateTask(StateManager *sm, State nextState, unsigned int time);
     ~TimerChangeStateTask();
+    boolean isInState();
     void tick();
     void init(unsigned int period);
 };
-
 
 #endif
