@@ -2,7 +2,7 @@
 #define __STATE_MANAGER__
 
 #include "scheduler/Scheduler.hpp"
-#include "PartManager.hpp"
+#include "components/ComponentsManager.hpp"
 
 typedef enum
 {
@@ -18,7 +18,7 @@ class StateManager
 {
 private:
     State currState;
-    PartManager *partManager;
+    ComponentsManager *partManager;
     Scheduler *scheduler;
 
 public:

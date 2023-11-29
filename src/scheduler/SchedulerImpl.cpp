@@ -1,7 +1,7 @@
 #include "SchedulerImpl.hpp"
 
 #include <TimerOne.h>
-#include "PartManager.hpp"
+#include "components/ComponentsManager.hpp"
 
 volatile bool timerFlag;
 

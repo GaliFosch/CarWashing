@@ -3,7 +3,7 @@
 #include "scheduler/TimerChangeStateTask.hpp"
 #include "scheduler/SchedulerImpl.hpp"
 
-StateManager::StateManager(State initialState) : partManager(PartManager::getInstance())
+StateManager::StateManager(State initialState) : partManager(ComponentsManager::getInstance())
 {
     this->scheduler = new SchedulerImpl();
     this->currState = initialState;

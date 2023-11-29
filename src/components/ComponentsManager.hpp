@@ -10,7 +10,7 @@
 #include "components/api/Button.hpp"
 #include "components/api/TemperatureSensor.hpp"
 
-class PartManager
+class ComponentsManager
 {
 private:
     Led led1;
@@ -22,12 +22,12 @@ private:
     LiquidCrystal_I2C lcd;
     Button startButton;
     TemperatureSensor tempSensor;
-    PartManager();
+    ComponentsManager();
 
 public:
-    static PartManager *getInstance()
+    static ComponentsManager *getInstance()
     {
-        static PartManager *instancePtr = new PartManager();
+        static ComponentsManager *instancePtr = new ComponentsManager();
         return instancePtr;
     }
 

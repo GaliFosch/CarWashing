@@ -1,4 +1,4 @@
-#include "PartManager.hpp"
+#include "ComponentsManager.hpp"
 
 const int ledPins[] = {12, 2, 3};
 const int pirPin = 4;
@@ -7,7 +7,7 @@ const int gatePin = 5;
 const int buttonPin = 8;
 const int tempSensorPin = 9;
 
-PartManager::PartManager() : led1(ledPins[0]),
+ComponentsManager::ComponentsManager() : led1(ledPins[0]),
                              led2(ledPins[1]),
                              led3(ledPins[2]),
                              pir(pirPin),
@@ -19,57 +19,57 @@ PartManager::PartManager() : led1(ledPins[0]),
 {
 }
 
-void PartManager::init()
+void ComponentsManager::init()
 {
     lcd.init();
     lcd.backlight();
 }
 
-Led PartManager::getLed1()
+Led ComponentsManager::getLed1()
 {
     return led1;
 }
-Led PartManager::getLed2()
+Led ComponentsManager::getLed2()
 {
     return led2;
 }
-Led PartManager::getLed3()
+Led ComponentsManager::getLed3()
 {
     return led3;
 }
 
-PIRSensor *PartManager::getPirSensor()
+PIRSensor *ComponentsManager::getPirSensor()
 {
     return &pir;
 }
 
-ProximitySensor *PartManager::getProximitySensor()
+ProximitySensor *ComponentsManager::getProximitySensor()
 {
     return &sonar;
 }
 
-Button *PartManager::getButton()
+Button *ComponentsManager::getButton()
 {
     return &startButton;
 }
 
-TemperatureSensor *PartManager::getTemperatureSensor()
+TemperatureSensor *ComponentsManager::getTemperatureSensor()
 {
     return &tempSensor;
 }
 
-void PartManager::print(String string)
+void ComponentsManager::print(String string)
 {
     lcd.setCursor(2, 1);
     lcd.print(string);
 }
 
-void PartManager::openGate()
+void ComponentsManager::openGate()
 {
     gate.open();
 }
 
-void PartManager::closeGate()
+void ComponentsManager::closeGate()
 {
     gate.close();
 }
