@@ -3,6 +3,8 @@
 
 #include "scheduler/Scheduler.hpp"
 
+boolean detectedProblem = false;
+
 enum class State: int{
     SLEEP,
     CAR_DETECTED,

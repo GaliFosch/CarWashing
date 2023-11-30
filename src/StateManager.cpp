@@ -5,8 +5,6 @@
 
 ComponentsManager *compManager = ComponentsManager::getInstance();
 
-boolean detectedProblem = false;
-
 StateManager::StateManager()
 {
     scheduler = new SchedulerImpl;

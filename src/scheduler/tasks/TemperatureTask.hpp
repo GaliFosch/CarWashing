@@ -15,6 +15,7 @@ private:
 public:
     TemperatureTask(unsigned int time, StateManager* sm, TemperatureSensor* tS, double temperature, Mode mode);
     boolean isInState();
+    void exec();
 };
 
 
