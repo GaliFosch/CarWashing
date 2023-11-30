@@ -9,7 +9,7 @@ class BlinkTask: public Task
 private:
     Led* led;
 public:
-    BlinkTask(Led led);
+    BlinkTask(Led* led);
     void tick();
     void init(unsigned int period);
 };

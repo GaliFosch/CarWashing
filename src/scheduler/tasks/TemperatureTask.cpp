@@ -18,6 +18,6 @@ boolean TemperatureTask::isInState(){
 
 void TemperatureTask::exec(){
     SensorTask::exec();
-    detectedProblem = true;
+    sm->signalProblem();
 }
 

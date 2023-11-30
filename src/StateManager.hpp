@@ -3,7 +3,6 @@
 
 #include "scheduler/Scheduler.hpp"
 
-boolean detectedProblem = false;
 
 enum class State: int{
     SLEEP,
@@ -18,6 +17,7 @@ enum class State: int{
 class StateManager
 {
 private:
+    boolean detectedProblem = false;
     Scheduler* scheduler;
     State currState;
     State nextState;
@@ -28,6 +28,7 @@ public:
     void changeState();
     void step();
     State getState();
+    void signalProblem();
 };
 
 #endif

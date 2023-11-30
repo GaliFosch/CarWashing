@@ -12,7 +12,7 @@ public:
     virtual void init(unsigned int period)
     {
         this->period = period;
-        Serial.println(this->period);
+        this->deactivate();
     }
     bool updateAndCheckTime(unsigned int time)
     {

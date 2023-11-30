@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-BlinkTask::BlinkTask(Led led): led(&led)
+BlinkTask::BlinkTask(Led* led): led(led)
 {
 }
 

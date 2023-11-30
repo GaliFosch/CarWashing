@@ -13,7 +13,6 @@ protected:
     virtual void exec() = 0;
 public:
     TimeInStateTask(unsigned int time): time(time){}
-    virtual void init(unsigned int period);
     void tick(){
         if(isInState())
             counter += period;
