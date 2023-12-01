@@ -40,12 +40,15 @@ void StateManager::init()
     blink2 = new BlinkTask(compManager->getLed2());
     blink2->init(100);
     this->scheduler->addTask(blink2);
+
     pir = new PIRTask(N1, compManager->getPirSensor(), this);
     pir->init(100);
     this->scheduler->addTask(pir);
+
     proxTask1 = new ProximityTask(N2, this, compManager->getProximitySensor(), DIST, ProximityTask::Mode::LOWER);
     proxTask1->init(500);
     this->scheduler->addTask(proxTask1);
+
     buttonTask = new ButtonTask(this, compManager->getButton());
     buttonTask->init(200);
     this->scheduler->addTask(buttonTask);
@@ -53,9 +56,11 @@ void StateManager::init()
     timerTask = new TimerTask(N3, this);
     timerTask->init(100);
     this->scheduler->addTask(timerTask);
+
     tempTask = new TemperatureTask(T_TIME, this, compManager->getTemperatureSensor(), MAX_TEMP, TemperatureTask::Mode::GREATER);
     tempTask->init(100);
     this->scheduler->addTask(tempTask);
+    
     proxTask2 = new ProximityTask(N4, this, compManager->getProximitySensor(), DIST, ProximityTask::Mode::GREATER);
     proxTask2->init(500);
     this->scheduler->addTask(proxTask2);
@@ -163,6 +168,7 @@ void StateManager::step()
         }
         mustChangeState = false;
     }
+
     this->scheduler->scedule();
 }
 
