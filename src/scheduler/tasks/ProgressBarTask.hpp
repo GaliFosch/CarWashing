@@ -2,10 +2,12 @@
 #define __PROGRESS_BAR_TASK__
 
 #include "SensorTask.hpp"
+#include "components/ComponentsManager.hpp"
 
 class ProgressBarTask : public SensorTask
 {
 private:
+    ComponentsManager* compManager = ComponentsManager::getInstance();
     unsigned int maxCount;
     unsigned int counter;
     void init(unsigned int period);

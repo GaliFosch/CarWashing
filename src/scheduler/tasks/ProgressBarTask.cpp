@@ -1,7 +1,4 @@
 #include "ProgressBarTask.hpp"
-#include "components/ComponentsManager.hpp"
-
-ComponentsManager* compManager = ComponentsManager::getInstance();
 
 ProgressBarTask::ProgressBarTask(unsigned int time, StateManager *sm) : SensorTask(time, sm)
 {
