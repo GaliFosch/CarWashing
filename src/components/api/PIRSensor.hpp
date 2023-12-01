@@ -10,6 +10,7 @@ public:
     PIRSensor(int pin);
     ~PIRSensor();
     int read();
+    int getPin();
 };
 
 #endif

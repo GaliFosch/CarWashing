@@ -1,6 +1,8 @@
 #ifndef __STATE_MANAGER__
 #define __STATE_MANAGER__
 
+#include <avr/sleep.h>
+
 #include "scheduler/Scheduler.hpp"
 #include "components/ComponentsManager.hpp"
 
@@ -34,6 +36,8 @@ private:
     Task* tempTask;
     Task* checkMaintenanceTask;
     Task* proxTask2;
+
+    void sleep();
 public:
     StateManager();
     void init();

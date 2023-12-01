@@ -15,3 +15,7 @@ int PIRSensor::read()
 {
     return digitalRead(pin);
 }
+
+int PIRSensor::getPin(){
+    return pin;
+}

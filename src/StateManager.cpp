@@ -79,6 +79,7 @@ void StateManager::step()
 {
     if (mustChangeState)
     {
+        mustChangeState = false;
         if (detectedProblem && currState == State::WASHING)
         {
             currState = State::MALFUNCTIONING;
@@ -94,19 +95,14 @@ void StateManager::step()
                 compManager->getLed3()->turnOff();
 
                 proxTask2->deactivate();
-                // temporaneo
-                buttonTask->activate();
-                //----------
-
+                sleep();
+                this->changeState();
                 nextState = State::CAR_DETECTED;
                 break;
             case State::CAR_DETECTED:
                 compManager->getLed1()->turnOn();
                 compManager->print("Welcome!");
-
-                // temporaneo
-                buttonTask->deactivate();
-                //----------
+                
                 pir->activate();
 
                 nextState = State::CAR_ENTERING;
@@ -171,7 +167,6 @@ void StateManager::step()
                 nextState = State::SLEEP;
                 break;
         }
-        mustChangeState = false;
     }
 
     this->scheduler->scedule();
@@ -185,4 +180,18 @@ State StateManager::getState()
 void StateManager::signalProblem()
 {
     detectedProblem = true;
+}
+
+void StateManager::sleep(){
+  attachInterrupt(digitalPinToInterrupt(compManager->getPirSensor()->getPin()), wakeUp, RISING);
+
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  sleep_enable();
+  sleep_mode();
+  sleep_disable();
+  
+  detachInterrupt(digitalPinToInterrupt(compManager->getPirSensor()->getPin()));
+}
+
+void wakeUp(){
 }
