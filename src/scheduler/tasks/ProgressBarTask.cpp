@@ -2,7 +2,7 @@
 
 ProgressBarTask::ProgressBarTask(unsigned int time, StateManager *sm) : SensorTask(time, sm)
 {
-    this->init(100);
+    this->init(1000);
 }
 
 void ProgressBarTask::init(unsigned int period){
