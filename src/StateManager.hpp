@@ -2,7 +2,7 @@
 #define __STATE_MANAGER__
 
 #include "scheduler/Scheduler.hpp"
-
+#include "components/ComponentsManager.hpp"
 
 enum class State: int{
     SLEEP,
@@ -22,6 +22,18 @@ private:
     State currState;
     State nextState;
     bool mustChangeState;
+
+    ComponentsManager *compManager = ComponentsManager::getInstance();
+
+    Task* blink2;
+    Task* pir;
+    Task* proxTask1;
+    Task* buttonTask;
+    Task* progBarTask;
+    Task* timerTask;
+    Task* tempTask;
+    Task* checkMaintenanceTask;
+    Task* proxTask2;
 public:
     StateManager();
     void init();

@@ -1,4 +1,5 @@
 #include "TemperatureTask.hpp"
+#include "serial/MsgService.hpp"
 
 TemperatureTask::TemperatureTask(unsigned int time, StateManager *sm, TemperatureSensor *tS, double temperature, Mode mode):
     SensorTask(time, sm),
@@ -9,15 +10,18 @@ TemperatureTask::TemperatureTask(unsigned int time, StateManager *sm, Temperatur
 }
 
 boolean TemperatureTask::isInState(){
+    double read = tS->read();
+    MsgService.sendMsg("t-"+ String(read,2));
     if(mode == GREATER){
-        return tS->read()>=temp;
+        return read>=temp;
     }else{
-        return tS->read()<=temp;
+        return read<=temp;
     }
 }
 
 void TemperatureTask::exec(){
     SensorTask::exec();
+    MsgService.sendMsg("m");
     sm->signalProblem();
 }
 

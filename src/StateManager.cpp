@@ -1,34 +1,28 @@
 #include "StateManager.hpp"
 
-#include "scheduler/SchedulerImpl.hpp"
-#include "components/ComponentsManager.hpp"
+#include "serial/MsgService.hpp"
 
+#include "scheduler/SchedulerImpl.hpp"
 #include "scheduler/tasks/BlinkTask.hpp"
 #include "scheduler/tasks/PIRTask.hpp"
 #include "scheduler/tasks/ProximityTask.hpp"
 #include "scheduler/tasks/ButtonTask.hpp"
 #include "scheduler/tasks/TimerTask.hpp"
 #include "scheduler/tasks/TemperatureTask.hpp"
+#include "scheduler/tasks/ProgressBarTask.hpp"
+#include "scheduler/tasks/CheckMaintenanceTask.hpp"
 
 #define N1 2000
 #define N2 2000
 #define N3 10000
 #define N4 2000
 
-#define T_TIME 500
+#define T_TIME 1000
 #define MAX_TEMP 30
 #define DIST 10
 
-ComponentsManager *compManager = ComponentsManager::getInstance();
-
-Task* blink2;
-Task* pir;
-Task* proxTask1;
-Task* buttonTask;
-//Task* progBarTask;
-Task* timerTask;
-Task* tempTask;
-Task* proxTask2;
+#define START_WASHNG_MSG "w"
+#define STOP_WASHNG_MSG "sw"
 
 StateManager::StateManager()
 {
@@ -53,6 +47,9 @@ void StateManager::init()
     buttonTask->init(200);
     this->scheduler->addTask(buttonTask);
 
+    progBarTask = new ProgressBarTask(10000, this);
+    this->scheduler->addTask(progBarTask);
+
     timerTask = new TimerTask(N3, this);
     timerTask->init(100);
     this->scheduler->addTask(timerTask);
@@ -60,7 +57,11 @@ void StateManager::init()
     tempTask = new TemperatureTask(T_TIME, this, compManager->getTemperatureSensor(), MAX_TEMP, TemperatureTask::Mode::GREATER);
     tempTask->init(100);
     this->scheduler->addTask(tempTask);
-    
+
+    checkMaintenanceTask = new CheckMaintenanceTask(this);
+    checkMaintenanceTask->init(100);
+    this->scheduler->addTask(checkMaintenanceTask);
+
     proxTask2 = new ProximityTask(N4, this, compManager->getProximitySensor(), DIST, ProximityTask::Mode::GREATER);
     proxTask2->init(500);
     this->scheduler->addTask(proxTask2);
@@ -93,17 +94,17 @@ void StateManager::step()
                 compManager->getLed3()->turnOff();
 
                 proxTask2->deactivate();
-                //temporaneo
+                // temporaneo
                 buttonTask->activate();
                 //----------
 
-                nextState= State::CAR_DETECTED;
+                nextState = State::CAR_DETECTED;
                 break;
             case State::CAR_DETECTED:
                 compManager->getLed1()->turnOn();
                 compManager->print("Welcome!");
 
-                //temporaneo
+                // temporaneo
                 buttonTask->deactivate();
                 //----------
                 pir->activate();
@@ -114,7 +115,7 @@ void StateManager::step()
                 compManager->getLed1()->turnOff();
                 compManager->print("Proceed to the Washing Area");
                 compManager->openGate();
-                
+
                 pir->deactivate();
                 blink2->activate();
                 proxTask1->activate();
@@ -133,11 +134,14 @@ void StateManager::step()
                 nextState = State::WASHING;
                 break;
             case State::WASHING:
+                MsgService.sendMsg(START_WASHNG_MSG);
 
                 buttonTask->deactivate();
+                checkMaintenanceTask->deactivate();
                 blink2->activate();
                 tempTask->activate();
                 timerTask->activate();
+                progBarTask->activate();
 
                 nextState = State::CAR_LEAVING;
                 break;
@@ -148,22 +152,23 @@ void StateManager::step()
                 blink2->deactivate();
                 tempTask->deactivate();
                 timerTask->deactivate();
-                //temporaneo
-                buttonTask->activate();
-                //----------
+                progBarTask->deactivate();
+                checkMaintenanceTask->activate();
+
                 nextState = State::WASHING;
                 break;
             case State::CAR_LEAVING:
+                MsgService.sendMsg(STOP_WASHNG_MSG);
                 compManager->getLed2()->turnOff();
                 compManager->getLed3()->turnOn();
                 compManager->print("Washing complete, you can leave the area");
-                
+
                 blink2->deactivate();
                 tempTask->deactivate();
                 timerTask->deactivate();
                 proxTask2->activate();
 
-                nextState=State::SLEEP;
+                nextState = State::SLEEP;
                 break;
         }
         mustChangeState = false;
@@ -177,6 +182,7 @@ State StateManager::getState()
     return this->currState;
 }
 
-void StateManager::signalProblem(){
+void StateManager::signalProblem()
+{
     detectedProblem = true;
 }
