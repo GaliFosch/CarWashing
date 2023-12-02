@@ -12,7 +12,7 @@ private:
     double temp;
 public:
     typedef enum{GREATER, LOWER} Mode;
-    TemperatureTask(unsigned int time, StateManager* sm, TemperatureSensor* tS, double temperature, Mode mode);
+    TemperatureTask(unsigned int time, StateManager* sm, State state, TemperatureSensor* tS, double temperature, Mode mode);
     boolean isInState();
     void exec();
 private:

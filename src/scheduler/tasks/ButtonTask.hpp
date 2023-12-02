@@ -9,7 +9,7 @@ class ButtonTask : public SensorTask
 private:
     Button* b;
 public:
-    ButtonTask(StateManager* sm, Button* button);
+    ButtonTask(StateManager* sm, Button* button, State state);
     boolean isInState();
 };
 

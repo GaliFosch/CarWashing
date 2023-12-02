@@ -1,7 +1,7 @@
 #include "ProximityTask.hpp"
 
-ProximityTask::ProximityTask(unsigned int time, StateManager* sm, ProximitySensor* pSensor, float dist, Mode mode) : 
-    SensorTask(time,sm), 
+ProximityTask::ProximityTask(unsigned int time, StateManager* sm, State state, ProximitySensor* pSensor, float dist, Mode mode) : 
+    SensorTask(time,sm, state), 
     pSensor(pSensor), 
     dist(dist),
     mode(mode)

@@ -12,7 +12,7 @@
 #include "scheduler/tasks/ProgressBarTask.hpp"
 #include "scheduler/tasks/CheckMaintenanceTask.hpp"
 
-#define N1 2000
+#define N1 1000
 #define N2 2000
 #define N3 10000
 #define N4 2000
@@ -20,6 +20,7 @@
 #define T_TIME 1000
 #define MAX_TEMP 30
 #define DIST 10
+#define TIMER 10000
 
 #define START_WASHNG_MSG "w"
 #define STOP_WASHNG_MSG "sw"
@@ -35,44 +36,45 @@ void StateManager::init()
     blink2->init(100);
     this->scheduler->addTask(blink2);
 
-    pir = new PIRTask(N1, compManager->getPirSensor(), this);
+    pir = new PIRTask(N1, compManager->getPirSensor(), this, State::CAR_ENTERING);
     pir->init(100);
     this->scheduler->addTask(pir);
 
-    proxTask1 = new ProximityTask(N2, this, compManager->getProximitySensor(), DIST, ProximityTask::Mode::LOWER);
+    timerTask = new TimerTask(TIMER, this, State::SLEEP);
+    timerTask->init(TIMER);
+    this->scheduler->addTask(timerTask);
+
+    proxTask1 = new ProximityTask(N2, this, State::WAITING_USER_INPUT, compManager->getProximitySensor(), DIST, ProximityTask::Mode::LOWER);
     proxTask1->init(500);
     this->scheduler->addTask(proxTask1);
 
-    buttonTask = new ButtonTask(this, compManager->getButton());
+    buttonTask = new ButtonTask(this, compManager->getButton(), State::WASHING);
     buttonTask->init(200);
     this->scheduler->addTask(buttonTask);
 
-    progBarTask = new ProgressBarTask(10000, this);
+    progBarTask = new ProgressBarTask(N3, this, State::CAR_LEAVING);
     this->scheduler->addTask(progBarTask);
 
-    timerTask = new TimerTask(N3, this);
-    timerTask->init(100);
-    this->scheduler->addTask(timerTask);
-
-    tempTask = new TemperatureTask(T_TIME, this, compManager->getTemperatureSensor(), MAX_TEMP, TemperatureTask::Mode::GREATER);
+    tempTask = new TemperatureTask(T_TIME, this, State::MALFUNCTIONING, compManager->getTemperatureSensor(), MAX_TEMP, TemperatureTask::Mode::GREATER);
     tempTask->init(100);
     this->scheduler->addTask(tempTask);
 
-    checkMaintenanceTask = new CheckMaintenanceTask(this);
+    checkMaintenanceTask = new CheckMaintenanceTask(this, State::WASHING);
     checkMaintenanceTask->init(100);
     this->scheduler->addTask(checkMaintenanceTask);
 
-    proxTask2 = new ProximityTask(N4, this, compManager->getProximitySensor(), DIST, ProximityTask::Mode::GREATER);
+    proxTask2 = new ProximityTask(N4, this, State::SLEEP, compManager->getProximitySensor(), DIST, ProximityTask::Mode::GREATER);
     proxTask2->init(500);
     this->scheduler->addTask(proxTask2);
 
-    this->nextState = State::SLEEP;
+    // this->nextState = State::SLEEP;
     this->scheduler->init(50);
 }
 
-void StateManager::changeState()
+void StateManager::changeState(State nextState)
 {
     this->mustChangeState = true;
+    this->nextState = nextState;
 }
 
 void StateManager::step()
@@ -80,92 +82,78 @@ void StateManager::step()
     if (mustChangeState)
     {
         mustChangeState = false;
-        if (detectedProblem && currState == State::WASHING)
-        {
-            currState = State::MALFUNCTIONING;
-        }
-        else
-        {
-            currState = nextState;
-        }
         switch (currState)
         {
-            case State::SLEEP:
-                compManager->closeGate();
-                compManager->getLed3()->turnOff();
+        case State::SLEEP:
+            compManager->closeGate();
+            compManager->getLed3()->turnOff();
 
-                proxTask2->deactivate();
-                sleep();
-                this->changeState();
-                nextState = State::CAR_DETECTED;
-                break;
-            case State::CAR_DETECTED:
-                compManager->getLed1()->turnOn();
-                compManager->print("Welcome!");
-                
-                pir->activate();
+            proxTask2->deactivate();
+            pir->deactivate();
+            timerTask->deactivate();
+            sleep();
+            this->changeState(State::CAR_DETECTED);
+            break;
+        case State::CAR_DETECTED:
+            compManager->getLed1()->turnOn();
+            compManager->print("Welcome!");
 
-                nextState = State::CAR_ENTERING;
-                break;
-            case State::CAR_ENTERING:
-                compManager->getLed1()->turnOff();
-                compManager->print("Proceed to the Washing Area");
-                compManager->openGate();
+            pir->activate();
+            timerTask->activate();
 
-                pir->deactivate();
-                blink2->activate();
-                proxTask1->activate();
+            break;
+        case State::CAR_ENTERING:
+            compManager->getLed1()->turnOff();
+            compManager->print("Proceed to the Washing Area");
+            compManager->openGate();
 
-                nextState = State::WAITING_USER_INPUT;
-                break;
-            case State::WAITING_USER_INPUT:
-                compManager->getLed2()->turnOff();
-                compManager->closeGate();
-                compManager->print("Ready to Wash");
+            pir->deactivate();
+            timerTask->deactivate();
+            blink2->activate();
+            proxTask1->activate();
 
-                blink2->deactivate();
-                proxTask1->deactivate();
-                buttonTask->activate();
+            break;
+        case State::WAITING_USER_INPUT:
+            compManager->getLed2()->turnOff();
+            compManager->closeGate();
+            compManager->print("Ready to Wash");
 
-                nextState = State::WASHING;
-                break;
-            case State::WASHING:
-                MsgService.sendMsg(START_WASHNG_MSG);
+            blink2->deactivate();
+            proxTask1->deactivate();
+            buttonTask->activate();
 
-                buttonTask->deactivate();
-                checkMaintenanceTask->deactivate();
-                blink2->activate();
-                tempTask->activate();
-                timerTask->activate();
-                progBarTask->activate();
+            break;
+        case State::WASHING:
+            MsgService.sendMsg(START_WASHNG_MSG);
 
-                nextState = State::CAR_LEAVING;
-                break;
-            case State::MALFUNCTIONING:
-                compManager->getLed2()->turnOff();
-                compManager->print("Detected a Problem \n Please Wait");
+            buttonTask->deactivate();
+            checkMaintenanceTask->deactivate();
+            blink2->activate();
+            tempTask->activate();
+            progBarTask->activate();
 
-                blink2->deactivate();
-                tempTask->deactivate();
-                timerTask->deactivate();
-                progBarTask->deactivate();
-                checkMaintenanceTask->activate();
+            break;
+        case State::MALFUNCTIONING:
+            compManager->getLed2()->turnOff();
+            compManager->print("Detected a Problem \n Please Wait");
 
-                nextState = State::WASHING;
-                break;
-            case State::CAR_LEAVING:
-                MsgService.sendMsg(STOP_WASHNG_MSG);
-                compManager->getLed2()->turnOff();
-                compManager->getLed3()->turnOn();
-                compManager->print("Washing complete, you can leave the area");
+            blink2->deactivate();
+            tempTask->deactivate();
+            progBarTask->deactivate();
+            checkMaintenanceTask->activate();
 
-                blink2->deactivate();
-                tempTask->deactivate();
-                timerTask->deactivate();
-                proxTask2->activate();
+            break;
+        case State::CAR_LEAVING:
+            MsgService.sendMsg(STOP_WASHNG_MSG);
+            compManager->getLed2()->turnOff();
+            compManager->getLed3()->turnOn();
+            compManager->print("Washing complete, you can leave the area");
 
-                nextState = State::SLEEP;
-                break;
+            blink2->deactivate();
+            tempTask->deactivate();
+            proxTask2->activate();
+
+            break;
         }
     }
 
@@ -182,16 +170,18 @@ void StateManager::signalProblem()
     detectedProblem = true;
 }
 
-void StateManager::sleep(){
-  attachInterrupt(digitalPinToInterrupt(compManager->getPirSensor()->getPin()), wakeUp, RISING);
-
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-  sleep_enable();
-  sleep_mode();
-  sleep_disable();
-  
-  detachInterrupt(digitalPinToInterrupt(compManager->getPirSensor()->getPin()));
+void wakeUp()
+{
 }
 
-void wakeUp(){
+void StateManager::sleep()
+{
+    attachInterrupt(digitalPinToInterrupt(compManager->getPirSensor()->getPin()), wakeUp, RISING);
+
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    sleep_enable();
+    sleep_mode();
+    sleep_disable();
+
+    detachInterrupt(digitalPinToInterrupt(compManager->getPirSensor()->getPin()));
 }

@@ -1,8 +1,8 @@
 #include "TemperatureTask.hpp"
 #include "serial/MsgService.hpp"
 
-TemperatureTask::TemperatureTask(unsigned int time, StateManager *sm, TemperatureSensor *tS, double temperature, Mode mode):
-    SensorTask(time, sm),
+TemperatureTask::TemperatureTask(unsigned int time, StateManager *sm, State state, TemperatureSensor *tS, double temperature, Mode mode):
+    SensorTask(time, sm, state),
     tS(tS),
     temp(temperature),
     mode(mode)

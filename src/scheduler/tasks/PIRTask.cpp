@@ -1,6 +1,6 @@
 #include "PIRTask.hpp"
 
-PIRTask::PIRTask(unsigned int time, PIRSensor* pir, StateManager* sm) : SensorTask(time, sm), pir(pir)
+PIRTask::PIRTask(unsigned int time, PIRSensor* pir, StateManager* sm, State state) : SensorTask(time, sm, state), pir(pir)
 {
 }
 

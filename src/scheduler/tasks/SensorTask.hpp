@@ -9,10 +9,11 @@ class SensorTask : public TimeInStateTask
 protected:
     virtual boolean isInState() = 0;
     StateManager* sm;
+    State state;
 public:
-    SensorTask(unsigned int time, StateManager* sm): TimeInStateTask(time), sm(sm) {}
+    SensorTask(unsigned int time, StateManager* sm, State state): TimeInStateTask(time), sm(sm), state(state) {}
     void exec(){
-        sm->changeState();
+        sm->changeState(state);
     }
 };
 

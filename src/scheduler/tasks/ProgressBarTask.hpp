@@ -12,9 +12,8 @@ private:
     unsigned int counter;
     void init(unsigned int period);
 public:
-    ProgressBarTask(unsigned int time, StateManager* sm);
+    ProgressBarTask(unsigned int time, StateManager* sm, State state);
     boolean isInState();
-    void exec();
 };
 
 

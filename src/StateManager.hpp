@@ -29,10 +29,10 @@ private:
 
     Task* blink2;
     Task* pir;
+    Task* timerTask;
     Task* proxTask1;
     Task* buttonTask;
     Task* progBarTask;
-    Task* timerTask;
     Task* tempTask;
     Task* checkMaintenanceTask;
     Task* proxTask2;
@@ -41,7 +41,7 @@ private:
 public:
     StateManager();
     void init();
-    void changeState();
+    void changeState(State nextState);
     void step();
     State getState();
     void signalProblem();

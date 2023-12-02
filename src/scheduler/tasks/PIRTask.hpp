@@ -9,7 +9,7 @@ class PIRTask : public SensorTask
 private:
     PIRSensor* pir;
 public:
-    PIRTask(unsigned int time, PIRSensor* pir, StateManager* sm);
+    PIRTask(unsigned int time, PIRSensor* pir, StateManager* sm, State state);
     boolean isInState();
 };
 

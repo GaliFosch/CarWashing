@@ -1,6 +1,6 @@
 #include "CheckMaintenanceTask.hpp"
 
-CheckMaintenanceTask::CheckMaintenanceTask(StateManager *sm) : SensorTask(0,sm)
+CheckMaintenanceTask::CheckMaintenanceTask(StateManager *sm, State state) : SensorTask(0,sm, state)
 {
 }
 

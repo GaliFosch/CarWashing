@@ -7,7 +7,7 @@
 class CheckMaintenanceTask : public SensorTask
 {
 public:
-    CheckMaintenanceTask(StateManager* sm);
+    CheckMaintenanceTask(StateManager* sm, State state);
     boolean isInState();
 };
 #endif

@@ -12,7 +12,7 @@ private:
     float dist;
 public:
     typedef enum{GREATER, LOWER} Mode;
-    ProximityTask(unsigned int time, StateManager* sm, ProximitySensor* pSensor, float dist, Mode mode);
+    ProximityTask(unsigned int time, StateManager* sm, State state, ProximitySensor* pSensor, float dist, Mode mode);
     boolean isInState();
 private:
     Mode mode;

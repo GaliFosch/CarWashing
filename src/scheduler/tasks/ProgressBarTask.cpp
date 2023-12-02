@@ -1,6 +1,6 @@
 #include "ProgressBarTask.hpp"
 
-ProgressBarTask::ProgressBarTask(unsigned int time, StateManager *sm) : SensorTask(time, sm)
+ProgressBarTask::ProgressBarTask(unsigned int time, StateManager *sm, State state) : SensorTask(time, sm, state)
 {
     this->init(1000);
 }
@@ -19,8 +19,4 @@ boolean ProgressBarTask::isInState(){
         counter--;
     }
     return true;
-}
-
-void ProgressBarTask::exec(){
-    sm->changeState();
 }

@@ -6,7 +6,7 @@
 class TimerTask : public SensorTask
 {
 public:
-    TimerTask(unsigned int time, StateManager* sm);
+    TimerTask(unsigned int time, StateManager* sm, State state);
     boolean isInState();
 };
 

@@ -1,6 +1,6 @@
 #include "ButtonTask.hpp"
 
-ButtonTask::ButtonTask(StateManager *sm, Button *button) : SensorTask(0, sm), b(button)
+ButtonTask::ButtonTask(StateManager *sm, Button *button, State state) : SensorTask(0, sm, state), b(button)
 {
 }
 
