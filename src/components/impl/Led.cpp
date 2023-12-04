@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-Led::Led(const int pin) : pin(pin)
+Led::Led(int pin) : pin(pin)
 {
     pinMode(pin, OUTPUT);
     state = OFF;

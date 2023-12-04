@@ -12,14 +12,15 @@
 #include "scheduler/tasks/ProgressBarTask.hpp"
 #include "scheduler/tasks/CheckMaintenanceTask.hpp"
 
-#define N1 1000
+#define N1 500
 #define N2 2000
 #define N3 10000
 #define N4 2000
 
 #define T_TIME 1000
 #define MAX_TEMP 30
-#define DIST 10
+#define DIST_ENT 0.05
+#define DIST_OUT 0.15
 #define TIMER 10000
 
 #define START_WASHNG_MSG "w"
@@ -33,7 +34,7 @@ StateManager::StateManager()
 void StateManager::init()
 {
     blink2 = new BlinkTask(compManager->getLed2());
-    blink2->init(100);
+    blink2->init(500);
     this->scheduler->addTask(blink2);
 
     pir = new PIRTask(N1, compManager->getPirSensor(), this, State::CAR_ENTERING);
@@ -44,7 +45,7 @@ void StateManager::init()
     timerTask->init(TIMER);
     this->scheduler->addTask(timerTask);
 
-    proxTask1 = new ProximityTask(N2, this, State::WAITING_USER_INPUT, compManager->getProximitySensor(), DIST, ProximityTask::Mode::LOWER);
+    proxTask1 = new ProximityTask(N2, this, State::WAITING_USER_INPUT, compManager->getProximitySensor(), DIST_ENT, ProximityTask::Mode::LOWER);
     proxTask1->init(500);
     this->scheduler->addTask(proxTask1);
 
@@ -63,11 +64,11 @@ void StateManager::init()
     checkMaintenanceTask->init(100);
     this->scheduler->addTask(checkMaintenanceTask);
 
-    proxTask2 = new ProximityTask(N4, this, State::SLEEP, compManager->getProximitySensor(), DIST, ProximityTask::Mode::GREATER);
+    proxTask2 = new ProximityTask(N4, this, State::SLEEP, compManager->getProximitySensor(), DIST_OUT, ProximityTask::Mode::GREATER);
     proxTask2->init(500);
     this->scheduler->addTask(proxTask2);
 
-    // this->nextState = State::SLEEP;
+    this->changeState(State::SLEEP);
     this->scheduler->init(50);
 }
 
@@ -82,6 +83,7 @@ void StateManager::step()
     if (mustChangeState)
     {
         mustChangeState = false;
+        this->currState = this->nextState;
         switch (currState)
         {
         case State::SLEEP:
@@ -114,7 +116,7 @@ void StateManager::step()
 
             break;
         case State::WAITING_USER_INPUT:
-            compManager->getLed2()->turnOff();
+            compManager->getLed2()->turnOn();
             compManager->closeGate();
             compManager->print("Ready to Wash");
 
@@ -151,6 +153,7 @@ void StateManager::step()
 
             blink2->deactivate();
             tempTask->deactivate();
+            progBarTask->deactivate();
             proxTask2->activate();
 
             break;

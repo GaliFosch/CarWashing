@@ -18,14 +18,16 @@ public:
     void tick()
     {
         if (isInState())
+        {
             counter += period;
+            if (counter >= time)
+            {
+                exec();
+                counter = 0;
+            }
+        }
         else
             counter = 0;
-        if (counter >= time)
-        {
-            exec();
-            counter = 0;
-        }
     }
 
     unsigned int getCurrTime()

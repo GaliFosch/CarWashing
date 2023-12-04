@@ -5,5 +5,5 @@ ButtonTask::ButtonTask(StateManager *sm, Button *button, State state) : SensorTa
 }
 
 boolean ButtonTask::isInState(){
-    return b->isPressed()>0;
+    return b->isPressed();
 }

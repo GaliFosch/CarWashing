@@ -15,7 +15,7 @@ ComponentsManager::ComponentsManager() : led1(L1_PIN),
                              led2(L2_PIN),
                              led3(L3_PIN),
                              pir(PIR_PIN),
-                             sonar(SONAR_PIN_ECHO, SONAR_PIN_TRIGGER, 20),
+                             sonar(SONAR_PIN_TRIGGER, SONAR_PIN_ECHO, 20),
                              gate(SERVO_PIN),
                              lcd(0x27, 20, 4),
                              startButton(BUTTON_PIN),
@@ -64,7 +64,8 @@ TemperatureSensor *ComponentsManager::getTemperatureSensor()
 
 void ComponentsManager::print(String string)
 {
-    lcd.setCursor(2, 1);
+    lcd.clear();
+    lcd.setCursor(0, 1);
     lcd.print(string);
 }
 

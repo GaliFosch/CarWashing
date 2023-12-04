@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-ProximitySensor::ProximitySensor(const int trigPin, const int echoPin, const int temperature) : trigPin(trigPin), echoPin(echoPin)
+ProximitySensor::ProximitySensor(int trigPin, int echoPin, int temperature) : trigPin(trigPin), echoPin(echoPin)
 {
     pinMode(trigPin, OUTPUT);
     pinMode(echoPin, INPUT);

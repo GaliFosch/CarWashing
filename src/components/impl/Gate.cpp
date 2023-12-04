@@ -2,13 +2,14 @@
 #include <Arduino.h>
 
 #define OPEN_ANGLE 90
-#define CLOSE_ANGLE 0
+#define CLOSE_ANGLE 180
 
 int delta = 1;
 
 Gate::Gate(int pin) : servo(pin), pos(0)
 {
     state = OPEN;
+    pos = CLOSE_ANGLE;
     this->close();
 }
 
@@ -21,12 +22,11 @@ void Gate::open()
 {
     if (state == CLOSED)
     {
-        Serial.println("open");
         servo.on();
-        for (int i = 0; i < 90; i++)
+        for (int i = pos; i > OPEN_ANGLE; i--)
         {
-            Serial.println(pos);
             servo.setPosition(pos);
+            delay(5);
             pos += delta;
         }
         servo.off();
@@ -38,12 +38,11 @@ void Gate::close()
 {
     if (state == OPEN)
     {
-        Serial.println("closed");
         servo.on();
-        for (int i = 0; i < 90; i++)
+        for (int i = pos; i < CLOSE_ANGLE; i++)
         {
-            Serial.println(pos);
             servo.setPosition(pos);
+            delay(5);
             pos -= delta;
         }
         servo.off();

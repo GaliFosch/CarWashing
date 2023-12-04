@@ -7,12 +7,12 @@ StateManager* sManager;
 void setup()
 {
     sManager = new StateManager();
-
+    ComponentsManager::getInstance()->init();
     MsgService.init();
     sManager->init();
 }
 
 void loop()
 {
-    sManager->step();
+    sManager->step(); 
 }

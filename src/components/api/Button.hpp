@@ -1,6 +1,8 @@
 #ifndef __BUTTON__
 #define __BUTTON__
 
+#include <Arduino.h>
+
 class Button
 {
 private:
@@ -9,7 +11,7 @@ private:
 public:
     Button(int pin);
     ~Button();
-    int isPressed();
+    boolean isPressed();
 };
 
 #endif
