@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-TemperatureSensor::TemperatureSensor(const int pin) : pin(pin)
+TemperatureSensor::TemperatureSensor(uint8_t pin) : pin(pin)
 {
 }
 TemperatureSensor::~TemperatureSensor()

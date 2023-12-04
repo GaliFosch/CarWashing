@@ -4,10 +4,10 @@
 class TemperatureSensor
 {
 private:
-    int pin;
+    uint8_t pin;
 
 public:
-    TemperatureSensor(int pin);
+    TemperatureSensor(uint8_t pin);
     ~TemperatureSensor();
     double read();
 };
