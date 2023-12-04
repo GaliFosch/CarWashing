@@ -1,21 +1,25 @@
 #include "ComponentsManager.hpp"
+#include <Arduino.h>
 
-const int ledPins[] = {12, 2, 3};
-const int pirPin = 4;
-const int sonarPins[] = {5, 6};
-const int gatePin = 5;
-const int buttonPin = 8;
-const int tempSensorPin = 9;
+#define PIR_PIN 2
+#define TEMP_ANALOG_PIN A1
+#define SONAR_PIN_ECHO 11
+#define SONAR_PIN_TRIGGER 12
+#define SERVO_PIN 4
+#define L1_PIN 7
+#define L2_PIN 6
+#define L3_PIN 5
+#define BUTTON_PIN 3
 
-ComponentsManager::ComponentsManager() : led1(ledPins[0]),
-                             led2(ledPins[1]),
-                             led3(ledPins[2]),
-                             pir(pirPin),
-                             sonar(sonarPins[0], sonarPins[1], 20),
-                             gate(gatePin),
+ComponentsManager::ComponentsManager() : led1(L1_PIN),
+                             led2(L2_PIN),
+                             led3(L3_PIN),
+                             pir(PIR_PIN),
+                             sonar(SONAR_PIN_ECHO, SONAR_PIN_TRIGGER, 20),
+                             gate(SERVO_PIN),
                              lcd(0x27, 20, 4),
-                             startButton(buttonPin),
-                             tempSensor(tempSensorPin)
+                             startButton(BUTTON_PIN),
+                             tempSensor(TEMP_ANALOG_PIN)
 {
 }
 
