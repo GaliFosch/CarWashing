@@ -10,7 +10,6 @@ private:
     ComponentsManager* compManager = ComponentsManager::getInstance();
     unsigned int maxCount;
     unsigned int counter;
-    void init(unsigned int period);
 public:
     ProgressBarTask(unsigned int time, StateManager* sm, State state);
     boolean isInState();

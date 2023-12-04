@@ -26,7 +26,7 @@ ComponentsManager::ComponentsManager() : led1(L1_PIN),
 void ComponentsManager::init()
 {
     lcd.init();
-    lcd.backlight();
+    gate.init();
 }
 
 Led *ComponentsManager::getLed1()
@@ -67,6 +67,15 @@ void ComponentsManager::print(String string)
     lcd.clear();
     lcd.setCursor(0, 1);
     lcd.print(string);
+}
+
+void ComponentsManager::turnOnLCD(){
+    lcd.backlight();
+}
+
+void ComponentsManager::turnOffLCD(){
+    lcd.clear();
+    lcd.noBacklight();
 }
 
 void ComponentsManager::openGate()

@@ -7,7 +7,6 @@ class Gate
 {
 private:
     ServoMotorImpl servo;
-    int pos;
     enum
     {
         OPEN,
@@ -19,6 +18,7 @@ public:
     ~Gate();
     void open();
     void close();
+    void init();
 };
 
 #endif

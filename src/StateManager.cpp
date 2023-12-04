@@ -7,7 +7,6 @@
 #include "scheduler/tasks/PIRTask.hpp"
 #include "scheduler/tasks/ProximityTask.hpp"
 #include "scheduler/tasks/ButtonTask.hpp"
-#include "scheduler/tasks/TimerTask.hpp"
 #include "scheduler/tasks/TemperatureTask.hpp"
 #include "scheduler/tasks/ProgressBarTask.hpp"
 #include "scheduler/tasks/CheckMaintenanceTask.hpp"
@@ -19,9 +18,8 @@
 
 #define T_TIME 1000
 #define MAX_TEMP 30
-#define DIST_ENT 0.05
+#define DIST_ENT 0.07
 #define DIST_OUT 0.15
-#define TIMER 10000
 
 #define START_WASHNG_MSG "w"
 #define STOP_WASHNG_MSG "sw"
@@ -40,10 +38,6 @@ void StateManager::init()
     pir = new PIRTask(N1, compManager->getPirSensor(), this, State::CAR_ENTERING);
     pir->init(100);
     this->scheduler->addTask(pir);
-
-    timerTask = new TimerTask(TIMER, this, State::SLEEP);
-    timerTask->init(TIMER);
-    this->scheduler->addTask(timerTask);
 
     proxTask1 = new ProximityTask(N2, this, State::WAITING_USER_INPUT, compManager->getProximitySensor(), DIST_ENT, ProximityTask::Mode::LOWER);
     proxTask1->init(500);
@@ -88,20 +82,20 @@ void StateManager::step()
         {
         case State::SLEEP:
             compManager->closeGate();
+            compManager->turnOffLCD();
             compManager->getLed3()->turnOff();
 
             proxTask2->deactivate();
             pir->deactivate();
-            timerTask->deactivate();
             sleep();
             this->changeState(State::CAR_DETECTED);
             break;
         case State::CAR_DETECTED:
             compManager->getLed1()->turnOn();
+            compManager->turnOnLCD();
             compManager->print("Welcome!");
 
             pir->activate();
-            timerTask->activate();
 
             break;
         case State::CAR_ENTERING:
@@ -110,7 +104,6 @@ void StateManager::step()
             compManager->openGate();
 
             pir->deactivate();
-            timerTask->deactivate();
             blink2->activate();
             proxTask1->activate();
 
@@ -149,6 +142,7 @@ void StateManager::step()
             MsgService.sendMsg(STOP_WASHNG_MSG);
             compManager->getLed2()->turnOff();
             compManager->getLed3()->turnOn();
+            compManager->openGate();
             compManager->print("Washing complete, you can leave the area");
 
             blink2->deactivate();

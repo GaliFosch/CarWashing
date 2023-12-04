@@ -41,6 +41,8 @@ public:
     Led *getLed3();
 
     void print(String string);
+    void turnOnLCD();
+    void turnOffLCD();
     void openGate();
     void closeGate();
 };

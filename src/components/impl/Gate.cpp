@@ -1,16 +1,16 @@
 #include "../api/Gate.hpp"
 #include <Arduino.h>
 
+#include "components/ComponentsManager.hpp"
+
 #define OPEN_ANGLE 90
-#define CLOSE_ANGLE 180
+#define CLOSE_ANGLE 200
 
 int delta = 1;
 
-Gate::Gate(int pin) : servo(pin), pos(0)
+Gate::Gate(int pin) : servo(pin)
 {
     state = OPEN;
-    pos = CLOSE_ANGLE;
-    this->close();
 }
 
 Gate::~Gate()
@@ -18,16 +18,26 @@ Gate::~Gate()
     servo.~ServoMotorImpl();
 }
 
+void Gate::init(){
+    ComponentsManager::getInstance()->getLed2()->turnOn();
+    servo.on();
+    for(int i = 0; i<CLOSE_ANGLE;i++){
+        servo.setPosition(i);
+        delay(5);
+    }
+    state = CLOSED;
+    servo.off();
+}
+
 void Gate::open()
 {
     if (state == CLOSED)
     {
         servo.on();
-        for (int i = pos; i > OPEN_ANGLE; i--)
+        for (int i = CLOSE_ANGLE; i > OPEN_ANGLE; i--)
         {
-            servo.setPosition(pos);
+            servo.setPosition(i);
             delay(5);
-            pos += delta;
         }
         servo.off();
         state = OPEN;
@@ -39,11 +49,10 @@ void Gate::close()
     if (state == OPEN)
     {
         servo.on();
-        for (int i = pos; i < CLOSE_ANGLE; i++)
+        for (int i = OPEN_ANGLE; i < CLOSE_ANGLE; i++)
         {
-            servo.setPosition(pos);
+            servo.setPosition(i);
             delay(5);
-            pos -= delta;
         }
         servo.off();
         state = CLOSED;
