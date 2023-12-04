@@ -1,7 +1,5 @@
 #include "../api/TemperatureSensor.hpp"
 
-#include <Arduino.h>
-
 TemperatureSensor::TemperatureSensor(uint8_t pin) : pin(pin)
 {
 }

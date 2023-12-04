@@ -1,6 +1,8 @@
 #ifndef __TEMPERATURE_SENSOR__
 #define __TEMPERATURE_SENSOR__
 
+#include <Arduino.h>
+
 class TemperatureSensor
 {
 private:
