@@ -15,9 +15,9 @@
 #define N2 2000
 #define N3 10000
 #define N4 2000
+#define N5 1000
 
-#define T_TIME 1000
-#define MAX_TEMP 30
+#define MAX_TEMP 27
 #define DIST_ENT 0.07
 #define DIST_OUT 0.15
 
@@ -50,7 +50,7 @@ void StateManager::init()
     progBarTask = new ProgressBarTask(N3, this, State::CAR_LEAVING);
     this->scheduler->addTask(progBarTask);
 
-    tempTask = new TemperatureTask(T_TIME, this, State::MALFUNCTIONING, compManager->getTemperatureSensor(), MAX_TEMP, TemperatureTask::Mode::GREATER);
+    tempTask = new TemperatureTask(N5, this, State::MALFUNCTIONING, compManager->getTemperatureSensor(), MAX_TEMP, TemperatureTask::Mode::GREATER);
     tempTask->init(100);
     this->scheduler->addTask(tempTask);
 
@@ -130,7 +130,7 @@ void StateManager::step()
             break;
         case State::MALFUNCTIONING:
             compManager->getLed2()->turnOff();
-            compManager->print("Detected a Problem \n Please Wait");
+            compManager->print("Detected a Problem! Please Wait");
 
             blink2->deactivate();
             tempTask->deactivate();

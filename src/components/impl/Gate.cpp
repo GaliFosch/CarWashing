@@ -1,8 +1,6 @@
 #include "../api/Gate.hpp"
 #include <Arduino.h>
 
-#include "components/ComponentsManager.hpp"
-
 #define OPEN_ANGLE 90
 #define CLOSE_ANGLE 200
 
@@ -19,7 +17,6 @@ Gate::~Gate()
 }
 
 void Gate::init(){
-    ComponentsManager::getInstance()->getLed2()->turnOn();
     servo.on();
     for(int i = 0; i<CLOSE_ANGLE;i++){
         servo.setPosition(i);
